@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SqueezeNet Image Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">SqueezeNet Image Classifier</h1>
+        <form id="image-form" class="mb-4">
+            <div class="form-group">
+                <label for="image">Select an image:</label>
+                <input type="file" class="form-control-file" id="image" name="image">
+            </div>
+            <button type="submit" class="btn btn-primary">Classify Image</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+    <script>
+        const form = document.getElementById('image-form');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            }).then((response) => {
+                return response.json();
+            }).then((result) => {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-success mt-4" role="alert">
+                        <h4 class="alert-heading">Classification Result</h4>
+                        <p>Class: ${result.class}, Probability: ${result.probability}</p>
+                    </div>
+                `;
+            }).catch((error) => {
+                console.error(error);
+            });
+        });
+
+    </script>
+</body>
+</html>
