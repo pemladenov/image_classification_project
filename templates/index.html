@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SqueezeNet Image Classifier</title>
+    <title>AlexNet Image Classifier</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -13,6 +13,7 @@
             <div class="form-group">
                 <label for="image">Select an image:</label>
                 <input type="file" class="form-control-file" id="image" name="image">
+                <img id="uploaded-image" src="#" alt="Uploaded Image" style="display: none; width: 260px; height: 260px; object-fit: cover;"/>
             </div>
             <button type="submit" class="btn btn-primary">Classify Image</button>
         </form>
@@ -24,6 +25,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
+        const imageInput = document.getElementById('image');
+        const uploadedImage = document.getElementById('uploaded-image');
+
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadedImage.src = e.target.result;
+                    uploadedImage.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
         const form = document.getElementById('image-form');
         const resultDiv = document.getElementById('result');
 
