@@ -31,8 +31,7 @@ def predict():
     img = Image.open(io.BytesIO(img_bytes))
     img = img.convert('RGB')    
     img = img.resize((224, 224))  # Resize the image to the expected input size for AlexNet
-    img_arr = np.array(img).astype(np.float32)
-
+    img_arr = np.array(img).astype(np.float32)  # Convert the image to a numpy array
     mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
     std = np.array([0.229, 0.224, 0.225], dtype=np.float32)
     img_arr = img_arr / 255.0  # convert pixel values to the range [0, 1]
