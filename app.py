@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 Bootstrap(app)
 
-inference = onnxruntime.InferenceSession('bvlcalexnet-12.onnx', providers=['CPUExecutionProvider'])
+inference = onnxruntime.InferenceSession('model.onnx', providers=['CPUExecutionProvider']) 
 
 # Load the model
 model = onnx.load('model.onnx')
