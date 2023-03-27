@@ -9,11 +9,10 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 Bootstrap(app)
 
-inference = onnxruntime.InferenceSession('squeezenet1.0-12-int8.onnx', providers=['CPUExecutionProvider']) 
+inference = onnxruntime.InferenceSession('bvlcalexnet-12.onnx', providers=['CPUExecutionProvider']) 
 
 # Load the model
-model = onnx.load('squeezenet1.0-12-int8.onnx')
-
+model = onnx.load('bvlcalexnet-12.onnx')
 
 # Get the input node (the first node of the graph)
 input_name = inference.get_inputs()[0].name
