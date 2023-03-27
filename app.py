@@ -50,5 +50,7 @@ def predict():
     # return the result as a JSON object
     results = [{'class': cls, 'probability': str(prob)} for cls, prob in zip(top_classes, top_probs)]
     return jsonify(results)
-if __name__ == '__main__':
-    app.run()
+
+if __name__ == "__main__":
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)
