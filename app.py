@@ -9,10 +9,11 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 Bootstrap(app)
 
-inference = onnxruntime.InferenceSession('model.onnx', providers=['CPUExecutionProvider']) 
+inference = onnxruntime.InferenceSession('squeezenet1.0-12-int8.onnx', providers=['CPUExecutionProvider']) 
 
 # Load the model
-model = onnx.load('model.onnx')
+model = onnx.load('squeezenet1.0-12-int8.onnx')
+
 
 # Get the input node (the first node of the graph)
 input_name = inference.get_inputs()[0].name
@@ -41,6 +42,7 @@ def predict():
     img_arr = np.transpose(img_arr, (0, 3, 1, 2))  # Transpose to (batch_size, channels, height, width)
 
     output = inference.run(None, {"data_0": img_arr})
+    
     # make predictions
     probs = np.squeeze(output)
     top_indices = np.argsort(probs)[::-1][:5]
