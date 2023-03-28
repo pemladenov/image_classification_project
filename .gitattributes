@@ -1,3 +1,4 @@
 bvlcalexnet-12.onnx filter=lfs diff=lfs merge=lfs -text
 model.onnx filter=lfs diff=lfs merge=lfs -text
 squeezenet1.0-12-int8.onnx filter=lfs diff=lfs merge=lfs -text
+*.onnx filter=lfs diff=lfs merge=lfs -text
